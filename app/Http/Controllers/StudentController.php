@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Student\CreateStudentAction;
+use App\Factories\DTOs\Student\StudentDataFactory;
 use App\Http\Requests\Student\StudentRequest;
 use App\Http\Resources\Student\StudentResource;
 use App\Models\Student;
@@ -16,7 +18,10 @@ class StudentController extends Controller
 
     public function store(StudentRequest $request): StudentResource
     {
-        return new StudentResource(Student::create($request->validated()));
+        $data = new StudentDataFactory()->fromRequest($request);
+        $student = new CreateStudentAction()->execute($data);
+
+        return new StudentResource($student);
     }
 
     public function show(Student $student): StudentResource
