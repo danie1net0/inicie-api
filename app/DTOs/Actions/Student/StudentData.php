@@ -2,7 +2,7 @@
 
 namespace App\DTOs\Actions\Student;
 
-class CreateStudentData
+class StudentData
 {
     public function __construct(
         public string $name,
