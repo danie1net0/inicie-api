@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Actions\Student\{CreateStudentAction, UpdateStudentAction};
+use App\Actions\Student\{CreateStudentAction, DeleteStudentAction, UpdateStudentAction};
 use App\Factories\DTOs\Student\StudentDataFactory;
 use App\Http\Requests\Student\StudentRequest;
 use App\Http\Resources\Student\StudentResource;
@@ -39,7 +39,7 @@ class StudentController extends Controller
 
     public function destroy(Student $student)
     {
-        $student->delete();
+        new DeleteStudentAction()->execute($student);
 
         return response()->json(status: 204);
     }
