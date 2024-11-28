@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Actions\Student\CreateStudentAction;
+use App\Actions\Student\{CreateStudentAction, UpdateStudentAction};
 use App\Factories\DTOs\Student\StudentDataFactory;
 use App\Http\Requests\Student\StudentRequest;
 use App\Http\Resources\Student\StudentResource;
@@ -31,7 +31,8 @@ class StudentController extends Controller
 
     public function update(StudentRequest $request, Student $student): StudentResource
     {
-        $student->update($request->validated());
+        $data = new StudentDataFactory()->fromRequest($request);
+        $student = new UpdateStudentAction()->execute($student, $data);
 
         return new StudentResource($student);
     }
