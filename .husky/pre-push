@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+
+. $(pwd)/.env
+
+vendor/bin/sail php vendor/bin/pint
+vendor/bin/sail php vendor/bin/phpstan analyse --memory-limit=-1
+vendor/bin/sail php vendor/bin/pest --compact

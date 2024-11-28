@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+
+. $(pwd)/.env
+
+npx --no -- commitlint --edit $1
