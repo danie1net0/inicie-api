@@ -13,7 +13,11 @@ class StudentController extends Controller
 {
     public function index(): AnonymousResourceCollection
     {
-        return StudentResource::collection(Student::paginate(10));
+        $students = Student::query()
+            ->orderByDesc('created_at')
+            ->paginate(10);
+
+        return StudentResource::collection($students);
     }
 
     public function store(StudentRequest $request): StudentResource
