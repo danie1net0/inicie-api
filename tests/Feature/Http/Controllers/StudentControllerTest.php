@@ -77,6 +77,23 @@ test('deve atualizar estudante', function (array $input): void {
         ]);
 })->with('input');
 
+test('deve atualizar estudante sem alterar os dados', function (): void {
+    $student = Student::factory()->create();
+
+    $input = [
+        'name' => $student->name,
+        'email' => $student->email,
+    ];
+
+    putJson(route('students.update', $student->id), $input)
+        ->assertOk()
+        ->assertJsonPath('data', [
+            'id' => $student->id,
+            'name' => $input['name'],
+            'email' => $input['email'],
+        ]);
+});
+
 test('não deve atualizar estudante com dados inválidos', function (): void {
     $student = Student::factory()->create();
     $input = [
